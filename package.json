@@ -4,7 +4,10 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-safe-app": "cd node_modules/safe-app && npm install",
+    "rebuild": "npm rebuild --runtime=electron --target=1.6.2 --disturl=https://atom.io/download/atom-shell --build-from-source",
+    "postinstall": "npm run build-safe-app && npm run rebuild"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -16,6 +19,9 @@
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
+  "dependencies": {
+    "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs/"
+  },
   "devDependencies": {
     "electron": "~1.6.2"
   }
