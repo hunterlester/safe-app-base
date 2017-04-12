@@ -7,7 +7,7 @@ let safeApp = require('safe-app');
 const appInfo = {
 	'id': 'net.safe.upload.mock',
 	'name': 'Host Website',
-	'vendor': 'GiveGame'
+	'vendor': 'hunterlester'
 }
 
 const containers = {
@@ -31,8 +31,11 @@ const parseUrl = (url) => (
   (url.indexOf('safe-auth://') === -1) ? url.replace('safe-auth:', 'safe-auth://') : url
 );
 
-setTimeout(() => {
-  safeApp.initializeApp(appInfo).then(app => app.auth.genAuthUri(containers, {own_container: true}).then(uri => {
-    shell.openExternal(parseUrl(uri.uri))
-  }))
-}, 3000)
+let auth = safeApp.initializeApp(appInfo).then(app => app.auth.genAuthUri(containers, {own_container: true}).then(uri => {
+	shell.openExternal(parseUrl(uri.uri));
+	return app.mutableData.newRandomPublic(15003)
+        .then((md) => {
+					console.log(md);
+					return md;
+				})
+}));
