@@ -11,6 +11,8 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+const Menu = electron.Menu;
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
@@ -21,6 +23,20 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+
+  mainWindow.openDevTools();
+
+  mainWindow.webContents.on('context-menu', (e, props) => {
+        const { x, y } = props;
+
+        Menu.buildFromTemplate([{
+          label: 'Inspect element',
+          click() {
+            mainWindow.inspectElement(x, y);
+          }
+        }]).popup(mainWindow);
+      });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -58,3 +74,27 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const sendResponse = (success) => {
+  mainWindow.webContents.send('auth-response', success ? success : '');
+};
+
+app.on('open-url', function (e, url) {
+  console.log('open-url event triggered');
+  sendResponse(url);
+});
+
+const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+  if (commandLine.length >= 2 && commandLine[1]) {
+        sendResponse(commandLine[1]);
+      }
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  }
+})
+
+if (shouldQuit) {
+  app.quit()
+}
