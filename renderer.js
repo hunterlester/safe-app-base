@@ -6,9 +6,9 @@ let safeApp = require('safe-app');
 let ipcRenderer = require('electron').ipcRenderer;
 
 const appInfo = {
-	'id': 'net.safe.upload.mock11',
-	'name': 'Host Website11',
-	'vendor': 'hunterlester11'
+	'id': 'net.safe.upload.mock13',
+	'name': 'Host Website13',
+	'vendor': 'hunterlester13'
 }
 
 const containers = {
@@ -29,16 +29,14 @@ const containers = {
 };
 
 const listenForAuthReponse = (event, response) => {
-	safeApp.fromAuthURI(appInfo, response).then(app => {
-		console.log(app);
-		app.mutableData.newRandomPublic(1500)
-	    .then((md) => {
-				return md.quickSetup({});
-			}).then((data) => {
-				console.log(data);
-				return data;
-			})
+	let app = safeApp.fromAuthURI(appInfo, response).then(app => {
 		return app;
+	});
+
+	app.then(app => {
+		return app.mutableData.newRandomPublic(15001)
+	}).then(mdata => {
+		console.log(mdata);
 	})
 };
 
