@@ -6,9 +6,9 @@ let safeApp = require('safe-app');
 let ipcRenderer = require('electron').ipcRenderer;
 
 const appInfo = {
-	'id': 'net.safe.upload.mock13',
-	'name': 'Host Website13',
-	'vendor': 'hunterlester13'
+	'id': 'net.safe.app.base.mock',
+	'name': 'SAFE app base',
+	'vendor': 'MaidSafe Ltd.'
 }
 
 const containers = {

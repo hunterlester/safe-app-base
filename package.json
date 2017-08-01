@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
+  "name": "base-safe-app",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Example of possible SAFE app basis",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,16 +9,9 @@
     "rebuild": "npm rebuild --runtime=electron --target=1.4.15 --disturl=https://atom.io/download/atom-shell --build-from-source",
     "postinstall": "npm run build-safe-app && npm run rebuild"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "repository": "https://github.com/hunterlester/safe-app-base",
+  "author": "Hunter Lester <hunter.lester@maidsafe.net",
+  "license": "MIT",
   "dependencies": {
     "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs/"
   },
