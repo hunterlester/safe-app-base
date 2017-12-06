@@ -18,11 +18,12 @@ cd safe-app-base
 # Set env variable for mock routing
 *nix: `set NODE_ENV='dev'`, Windows: `$env:NODE_ENV = 'dev'`
 # Install dependencies
-npm install
+yarn
 # Use npm start to verify that there are no errors in terminal before packaging
-npm start
+yarn start
 # You'll need to now package your app in order for authenticator to find it in system registry
-npm install electron-packager -g
+yarn package
+# Then find newly output directory in the root of this project starting with `base-safe-app...` to find executable
 ```
 
 Take a look at [Electron packager documentation](https://github.com/electron-userland/electron-packager) for further reading.

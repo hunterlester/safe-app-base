@@ -2,7 +2,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 let shell = require('electron').shell;
-let safeApp = require('safe-app');
+let safeApp = require('@maidsafe/safe-node-app');
 let ipcRenderer = require('electron').ipcRenderer;
 
 const appInfo = {

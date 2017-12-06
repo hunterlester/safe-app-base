@@ -5,17 +5,18 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build-safe-app": "cd node_modules/safe-app && npm install",
-    "rebuild": "npm rebuild --runtime=electron --target=1.4.15 --disturl=https://atom.io/download/atom-shell --build-from-source",
-    "postinstall": "npm run build-safe-app && npm run rebuild"
+    "rebuild": "npm rebuild --runtime=electron --target=1.7.9 --disturl=https://atom.io/download/atom-shell --build-from-source",
+    "postinstall": "npm run rebuild",
+    "package": "electron-packager ."
   },
   "repository": "https://github.com/hunterlester/safe-app-base",
   "author": "Hunter Lester <hunter.lester@maidsafe.net",
   "license": "MIT",
   "dependencies": {
-    "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs/"
+    "@maidsafe/safe-node-app": "0.5.2"
   },
   "devDependencies": {
-    "electron": "1.4.15"
+    "electron": "1.7.9",
+    "electron-packager": "^10.1.0"
   }
 }
