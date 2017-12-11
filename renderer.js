@@ -4,11 +4,17 @@
 let shell = require('electron').shell;
 let safeApp = require('@maidsafe/safe-node-app');
 let ipcRenderer = require('electron').ipcRenderer;
+const isDevMode = process.execPath.match(/[\\/]electron/);
 
 const appInfo = {
 	'id': 'net.safe.app.base.mock',
 	'name': 'SAFE app base',
 	'vendor': 'MaidSafe Ltd.'
+}
+
+// OSX: Add bundle for electron in dev mode
+if (isDevMode && process.platform === 'darwin') {
+  appInfo.bundle = 'com.github.electron';
 }
 
 const containers = {
