@@ -7,7 +7,7 @@
     "start": "electron .",
     "rebuild": "npm rebuild --runtime=electron --target=1.7.9 --disturl=https://atom.io/download/atom-shell --build-from-source",
     "postinstall": "npm run rebuild",
-    "package": "electron-packager ."
+    "package": "electron-packager . --appBundleId=\"net.safe.app.base.mock\""
   },
   "repository": "https://github.com/hunterlester/safe-app-base",
   "author": "Hunter Lester <hunter.lester@maidsafe.net",
