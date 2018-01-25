@@ -1,19 +1,20 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
-let shell = require('electron').shell;
-let safeApp = require('@maidsafe/safe-node-app');
-let ipcRenderer = require('electron').ipcRenderer;
+const shell = require('electron').shell;
+const remote = require('electron').remote;
+const safeApp = require('@maidsafe/safe-node-app');
+const ipcRenderer = require('electron').ipcRenderer;
 const isDevMode = process.execPath.match(/[\\/]electron/);
-
-const electron = require('electron');
-const app = (process.type === 'renderer') ? electron.remote.app : electron.app;
+const app = remote.app;
+const cwd = process.cwd();
+const electronExt = process.platform === 'win32' ? '.cmd' : '';
 
 const appInfo = {
-	id: 'net.safe.app.base.mock',
-	name: 'SAFE app base',
-	vendor: 'MaidSafe Ltd.',
-	customExecPath: isDevMode ? `${process.execPath} ${app.getAppPath()}` : app.getPath('exe')
+  id: 'net.safe.app.base.mock',
+  name: 'SAFE app base',
+  vendor: 'MaidSafe Ltd.',
+  customExecPath: isDevMode ? [`${process.execPath}`, `${app.getAppPath()}`] : [app.getPath('exe')]
 }
 
 // OSX: Add bundle for electron in dev mode
@@ -59,3 +60,5 @@ const parseUrl = (url) => (
 let auth = safeApp.initializeApp(appInfo).then(app => app.auth.genAuthUri(containers, {own_container: false}).then(uri => {
 	shell.openExternal(parseUrl(uri.uri));
 }));
+
+// let auth = safeApp.initializeApp(appInfo).then(app => app.auth.loginForTest()).then(console.log);
