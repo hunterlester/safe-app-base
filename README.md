@@ -18,11 +18,11 @@ cd safe-app-base
 # Set env variable for mock routing
 *nix: `set NODE_ENV='dev'`, Windows: `$env:NODE_ENV = 'dev'`
 # Install dependencies
-yarn
+npm install
 # Use npm start to verify that there are no errors in terminal before packaging
-yarn start
-# You'll need to now package your app in order for authenticator to find it in system registry
-yarn package
+npm run start
+# Packaging
+npm run package
 # Then find newly output directory in the root of this project starting with `base-safe-app...` to find executable
 ```
 
