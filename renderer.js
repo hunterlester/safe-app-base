@@ -39,16 +39,12 @@ const containers = {
   ]
 };
 
-const listenForAuthReponse = (event, response) => {
-	let app = safeApp.fromAuthURI(appInfo, response).then(app => {
-		return app;
-	});
-
-	app.then(app => {
-		return app.mutableData.newRandomPublic(15001)
-	}).then(mdata => {
-		console.log(mdata);
-	})
+const listenForAuthReponse = async (event, response) =>
+{
+	const app = await safeApp.fromAuthUri(appInfo, response, null, { forceUseMock: true });
+	const mData = await app.mutableData.newRandomPublic(15001);
+	console.log(mData);
+        return;
 };
 
 ipcRenderer.on('auth-response', listenForAuthReponse);
@@ -57,8 +53,14 @@ const parseUrl = (url) => (
   (url.indexOf('safe-auth://') === -1) ? url.replace('safe-auth:', 'safe-auth://') : url
 );
 
-let auth = safeApp.initializeApp(appInfo).then(app => app.auth.genAuthUri(containers, {own_container: false}).then(uri => {
-	shell.openExternal(parseUrl(uri.uri));
-}));
+const init = async ( ) =>
+{
+    const app = await safeApp.initialiseApp(appInfo);
+    const authUri = await app.auth.genAuthUri(containers, {own_container: false});
+    shell.openExternal(parseUrl(authUri.uri));
+};
+
+init();
+
 
 // let auth = safeApp.initializeApp(appInfo).then(app => app.auth.loginForTest()).then(console.log);
