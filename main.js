@@ -1,11 +1,13 @@
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
+const ipcMain = electron.ipcMain;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+const fs = require('fs');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -99,3 +101,23 @@ const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
 if (shouldQuit) {
   app.quit()
 }
+
+ipcMain.on('dir-path', ( event, dirPath ) => {
+    let fileObjects = [];
+    function readDir(dirPath) {
+        let filePaths = fs.readdirSync(dirPath);
+        filePaths.map( (filePath) => {
+          const fileStats = fs.statSync(path.join(dirPath, filePath));
+          if (fileStats.isDirectory()) {
+              readDir(path.join(dirPath, filePath));
+          } else {
+              fileObjects.push( {
+                path: path.join(dirPath, filePath),
+                buffer: fs.readFileSync(path.join(dirPath, filePath))
+              } );
+          }
+        } );
+    }
+    readDir(dirPath);
+    event.sender.send('dir-contents', fileObjects);
+});

@@ -60,7 +60,19 @@ const init = async ( ) =>
     shell.openExternal(parseUrl(authUri.uri));
 };
 
-init();
+//init();
+
+const inputElArray = document.getElementsByTagName('input');
+Array.prototype.forEach.call(inputElArray, ( input ) => {
+    input.addEventListener('change', (event) => {
+        const dirPath = event.target.files[0].path;
+        ipcRenderer.send('dir-path', dirPath);
+    });
+});
+
+ipcRenderer.on('dir-contents', (event, files) => {
+   console.log(files);
+} );
 
 
 // let auth = safeApp.initializeApp(appInfo).then(app => app.auth.loginForTest()).then(console.log);
