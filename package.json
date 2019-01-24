@@ -13,10 +13,10 @@
   "author": "Hunter Lester <hunter.lester@maidsafe.net",
   "license": "MIT",
   "dependencies": {
-    "@maidsafe/safe-node-app": "^0.9.1"
+    "@maidsafe/safe-node-app": "0.10.3"
   },
   "devDependencies": {
     "electron": "1.8.4",
-    "electron-packager": "^10.1.0"
+    "electron-packager": "^13.0.1"
   }
 }

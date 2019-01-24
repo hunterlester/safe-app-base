@@ -55,9 +55,10 @@ const parseUrl = (url) => (
 
 const init = async ( ) =>
 {
-    const app = await safeApp.initialiseApp(appInfo);
+    const app = await safeApp.initialiseApp(appInfo, null, { forceUseMock: true } );
     const authUri = await app.auth.genAuthUri(containers, {own_container: false});
-    shell.openExternal(parseUrl(authUri.uri));
+    console.log(authUri.uri);
+    shell.openExternal(authUri.uri);
 };
 
 init();
