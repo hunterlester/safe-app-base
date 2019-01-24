@@ -57,7 +57,15 @@ const init = async ( ) =>
 {
     const app = await safeApp.initialiseApp(appInfo, null, { forceUseMock: true } );
     const authUri = await app.auth.genAuthUri(containers, {own_container: false});
-    console.log(authUri.uri);
+    // const mdName = await app.crypto.sha3Hash('1010101010101');
+    // const permissions = [
+    //     {
+    //         typeTag: 15001,
+    //         name: mdName,
+    //             perms: ['Insert']
+    //     }
+    // ];
+    // const shareMDataReqUri = await app.auth.genShareMDataUri(permissions);
     shell.openExternal(authUri.uri);
 };
 
